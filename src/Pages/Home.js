@@ -1,23 +1,30 @@
 import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useState,useEffect } from 'react';
+import { api } from './../assets/api';
 import styled from 'styled-components';
+import Topics from '../components/Topics';
 
 
 function Home() {
     const navigate = useNavigate();
+    const [questions, setQuestions] = useState([]);
 
-    // useEffect(() => {
-    //     GET - topics/themes
-    // });
+    useEffect(() => {
+        api
+        .get('/questions')
+        .then(((res) => setQuestions(res)))
+        .catch((err) => {
+            alert("Houve um erro. Tente mais tarde!")});
+    });
 
     return (
         <Section>
-            <p>Login</p>
+            <h2>Login</h2>
             <Article>
                 <h1>AskSnap</h1>
                 <p>Escolha um tema</p>
-                {/* Render buttons com os tópicos recebidos do GET(useEffect) */}
-                <button onClick={() => navigate('/questions')}>JavaScript</button>
+                <Topics 
+                    array={questions}/>
                 <p>Primeira vez? Cadastre-se</p>
             </Article>
         </Section>
@@ -31,23 +38,30 @@ const Section = styled.div`
     height: 100vh;
     background-color: #104547;
 
-
-    p{
-        margin-right: 0;
+    h2{
+        margin-left: 85%;
         font-family: 'Alata';
         font-weight: 400;
         font-size: 20px;
         line-height: 28px;
-        text-align: center;
+        color: #FFFFFF;
+    }
+
+    p{
+        font-family: 'Alata';
+        font-weight: 400;
+        font-size: 20px;
+        line-height: 28px;
         color: #FFFFFF;
     }
 `;
 
 const Article = styled.div`
+    height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: space-evenly;
 
     h1{
         font-family: 'Alata';
