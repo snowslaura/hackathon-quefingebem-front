@@ -1,4 +1,4 @@
-
+import {navigate} from "react"
 
 function Topics(params){
     const {array} = params;

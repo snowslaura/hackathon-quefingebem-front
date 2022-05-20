@@ -2,15 +2,15 @@ import styled from 'styled-components';
 
 function Header() {
     return (
-        <Header>
+        <Headers>
             <h1>AskSnap</h1>
-        </Header>
+        </Headers>
     );
 };
 
 export default Header;
 
-const Header = styled.div`
+const Headers = styled.div`
     background-color: #104547;
     height: 85px; //#TODO: check height
 

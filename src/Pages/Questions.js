@@ -5,20 +5,22 @@ import { BsFillPencilFill} from "react-icons/bs"
 import Header from "./../components/Header"
 
 function Questions(){
+    
     return(    
     <>
+    <Header></Header>
     <Container>
         <Top>
-
-            <p>Javascript</p>
-
+            <IoReturnUpBack/>
+                <p>Javascript</p>
+            <CgMenuBoxed />
         </Top>
         <Question>
             <p>Qual a sua dúvida?</p>
             <form>
                 <div>
                     <input type="text" id="question" />
-                    <button type="submit"></button>
+                    <button type="submit"> <BsFillPencilFill/></button>
                 </div>    
             </form>
         </Question>
@@ -43,7 +45,6 @@ align-items: center;
 `
 
 const Top = styled.div`
-    margin-top: 108px;
     width: 100%;
     height: 45px;
     background: #4B5358;
@@ -54,14 +55,14 @@ const Top = styled.div`
     font-family: 'Alata';
     font-style: normal;
     font-weight: 400;
-    font-size: 20px;
+    font-size: 25px;
     line-height: 28px;
     text-align: center;
     color: #F9F9F9;
     padding: 10px;
 `
 const Question = styled.div`
-        margin-top: 25px;
+        margin-top: 5px;
         width: 95%;
         padding: 10px;
 
@@ -102,7 +103,7 @@ const Question = styled.div`
 `
 
 const LastQuestions = styled.div`
-        margin-top: 25px;
+        margin-top: 5px;
         width: 95%;
         height: 100%;
         padding: 10px;
