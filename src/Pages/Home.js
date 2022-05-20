@@ -31,8 +31,9 @@ const Section = styled.div`
     height: 100vh;
     background-color: #104547;
 
+
     p{
-        margin-right: 5px;
+        margin-right: 0;
         font-family: 'Alata';
         font-weight: 400;
         font-size: 20px;
