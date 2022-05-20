@@ -1,21 +1,19 @@
 import styled from "styled-components";
-import { IoReturnUpBack } from "react-icons/io"
-import { CgMenuBoxed } from "react-icons/cg"
-import { BsFillPencilFill} from "react-icons/bs"
+
 
 function Questions(){
     <>
         <Top>
-            <IoReturnUpBack/>
+
             <p>Javascript</p>
-            <CgMenuBoxed/>
+
         </Top>
         <Question>
             <p>Qual a sua dúvida?</p>
             <form>
                 <div>
                     <input type="text" id="question" />
-                    <button type="submit"><BsFillPencilFill/></button>
+                    <button type="submit"></button>
                 </div>    
             </form>
         </Question>
