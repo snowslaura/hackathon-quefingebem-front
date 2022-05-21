@@ -1,9 +1,11 @@
 import styled from 'styled-components';
-
+import {Link} from "react-router-dom"
 function Header() {
     return (
         <Headers>
-            <h1>AskSnap</h1>
+            <Link to={"/"}>
+                <h1>AskSnap</h1>
+            </Link>
         </Headers>
     );
 };

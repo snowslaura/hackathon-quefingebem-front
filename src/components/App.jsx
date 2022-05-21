@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './../Pages/Home';
 import Questions from '../Pages/Questions';
@@ -12,7 +11,7 @@ function App() {
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/questions" element={<Questions />} />
-                <Route path="/answers" element={<Answers />} />
+                <Route path="/answers/:id" element={<Answers />} />
             </Routes>
         </BrowserRouter>
     )

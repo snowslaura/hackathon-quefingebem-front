@@ -3,39 +3,66 @@ import { IoReturnUpBack } from "react-icons/io5"
 import { CgMenuBoxed } from "react-icons/cg"
 import { BsFillPencilFill} from "react-icons/bs"
 import Header from "./../components/Header"
+import {useLocation, useParams} from "react-router-dom";
+import axios from "axios"
+import {useEffect, useState} from "react"
+import Answers from "../components/Answers.jsx"
 
-function Questions(){
-    
+function Answer(){
+    const {id} = useParams();   
+    console.log(id) 
+    const navigate = useLocation();
+    const [answers, setAnswers] = useState([]);
+    const [postAnswer, setPostAnswer] = useState([])
+    useEffect(() => {
+        axios
+        .get(`${process.env.REACT_APP_API_URL}/answers/${id}`)
+        .then((res) =>{
+            setAnswers(res.data)
+            console.log(id)
+        })
+        .catch((err) => {
+            alert("Houve um erro. Tente mais tarde!")});
+    },[id]);
+
+    function submitAnswer(e){
+        e.preventDefault();
+        const body = {
+            postAnswer
+        }
+        axios
+        .post(`${process.env.REACT_APP_API_URL}/answers/${id}`, body )
+        .then((res) =>{            
+            setPostAnswer("")
+        })
+        .catch((err) => {
+            alert("Houve um erro. Tente novamente!")});
+    }
+
     return(    
     <>
     <Header></Header>
     <Container>
         <Top>
             <IoReturnUpBack/>
-                <p>Javascript</p>
+                {/* <p>{title}</p> */}
             <CgMenuBoxed />
         </Top>
         <Question>
-            <p>O que é JavaScript?</p>
-            <form>
-                <div>
-                    <input type="text" id="question" />
-                    <button type="submit"> <BsFillPencilFill/></button>
-                </div>    
-            </form>
+            <p>{answers.title}</p>           
         </Question>
         <Question>
             <p>Sabe a resposta? Colabore aqui</p>
-            <form>
+            <form onSubmit={submitAnswer}>
                 <div>
                     <input type="text" id="question" />
-                    <button type="submit"> <BsFillPencilFill/></button>
+                    <button type="submit" value={postAnswer} onChange={e => setPostAnswer({answer: e.target.value})} > <BsFillPencilFill/></button>
                 </div>    
             </form>
         </Question>
         <LastQuestions>
             <div>
-
+                <Answers array={answers}>  </Answers>
             </div>
         </LastQuestions>
     </Container>
@@ -43,13 +70,13 @@ function Questions(){
         
     )}
 
-export default Questions;
+export default Answer;
 
 const Container = styled.div`
 display: flex;
 flex-direction: column;
 align-items: center;
-
+height: 100vh;
 `
 
 const Top = styled.div`
@@ -129,6 +156,7 @@ const LastQuestions = styled.div`
     div{
         width: 100%;
         height: 517px;
+        overflow-y: scroll;
         background: #D9D9D9;
         backdrop-filter: blur(4px);
         border-radius: 15px;

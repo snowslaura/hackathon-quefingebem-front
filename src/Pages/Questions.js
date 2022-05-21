@@ -3,8 +3,44 @@ import { IoReturnUpBack } from "react-icons/io5"
 import { CgMenuBoxed } from "react-icons/cg"
 import { BsFillPencilFill} from "react-icons/bs"
 import Header from "./../components/Header"
+import {useEffect, useState} from "react"
+import axios from "axios"
+import {useLocation} from "react-router-dom";
+import TheTrueQuestions from '../components/Questions.jsx';
+
 
 function Questions(){
+    const navigate = useLocation();
+    const {title} = navigate.state;
+    const [questions, setQuestions] = useState([]);
+    const [question, setQuestion] = useState("");
+    useEffect(() => {
+        axios
+        .get(`${process.env.REACT_APP_API_URL}/questions`)
+        .then((res) =>{
+            setQuestions(res.data)
+            console.log(res.data)
+        })
+        .catch((err) => {
+            alert("Houve um erro. Tente mais tarde!")});
+    },[]);
+    
+    function submitQuestion(e){
+        e.preventDefault();
+        axios
+        .post(`${process.env.REACT_APP_API_URL}/questions`,{
+            type:title,title:question
+        }).then(
+            () => (
+                alert("Meu deus, meu senho, me ajuda, por favor")
+            )
+        ).catch((err) =>  {
+            alert("Infelizmente aconteceu um erro! Tente novamente!")
+            console.log(err);
+            }
+        )
+        
+    }
     
     return(    
     <>
@@ -12,22 +48,20 @@ function Questions(){
     <Container>
         <Top>
             <IoReturnUpBack/>
-                <p>Javascript</p>
+                <p>{title}</p>
             <CgMenuBoxed />
         </Top>
         <Question>
             <p>Qual a sua dúvida?</p>
-            <form>
-                <div>
-                    <input type="text" id="question" />
-                    <button type="submit"> <BsFillPencilFill/></button>
-                </div>    
-            </form>
+                    <form onSubmit={submitQuestion}>
+                        <input type="text" value={question} onChange={(e) => setQuestion(e.target.value)} id="question" />
+                        <button type="submit"> <BsFillPencilFill/></button>
+                    </form>
         </Question>
         <LastQuestions>
             <p>Últimas perguntas</p>
             <div>
-
+                <TheTrueQuestions array={questions} theTrueType={title}/>
             </div>
         </LastQuestions>
     </Container>
@@ -82,7 +116,7 @@ const Question = styled.div`
             font-size: 25px;
         }
 
-        div{
+        form{
             display: flex;
             flex-direction: row;
             justify-content: space-between;
@@ -118,15 +152,32 @@ const LastQuestions = styled.div`
             font-family: 'Alata';
 
         }
-    div{
-        width: 100%;
-        height: 517px;
-        background: #D9D9D9;
-        backdrop-filter: blur(4px);
-        border-radius: 15px;
-    }
-` 
     
+        div{
+            width: 100%;
+            height: 517px;
+            overflow-y: scroll;
+            background: #D9D9D9;
+            backdrop-filter: blur(4px);
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 10px; 
+            font-style: normal;
+            font-weight: 400;
+            font-size: 20px;
+            line-height: 28px;        
+            color: #000000; 
+            font-family: 'Alata';       
+        }
 
-
+        Link{
+            font-style: normal;
+            font-weight: 400;
+            font-size: 20px;
+            line-height: 28px;        
+            color: #000000; 
+        }
+` 
 
